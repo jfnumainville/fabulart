@@ -41,4 +41,3 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # This gem allows your Svelte application to make requests to your Rails API
 gem 'rack-cors'
-
