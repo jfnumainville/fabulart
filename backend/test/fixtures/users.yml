@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  prompt_attempts_today: 1
+  last_prompt_attempt_date: 2023-06-17
+
+two:
+  prompt_attempts_today: 1
+  last_prompt_attempt_date: 2023-06-17

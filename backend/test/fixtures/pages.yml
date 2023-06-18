@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  story: one
+  page_number: 1
+  page_text: MyText
+  image_prompt: MyText
+  image_url: MyString
+
+two:
+  story: two
+  page_number: 1
+  page_text: MyText
+  image_prompt: MyText
+  image_url: MyString
