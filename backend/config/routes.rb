@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   #user routes
    resources :users do
-    resources :stories, only: [:index, :show, :update, :destroy] do
+    resources :stories, only: [:index, ,:show, :create, :update, :destroy] do
       resources :pages, only: [:show, :create, :update, :destroy]
     end
   end
