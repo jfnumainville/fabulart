@@ -10,17 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_18_004702) do
+ActiveRecord::Schema.define(version: 2023_06_27_011720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "members", force: :cascade do |t|
-    t.integer "prompt_attempts_today"
-    t.date "last_prompt_attempt_date"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
 
   create_table "pages", force: :cascade do |t|
     t.bigint "story_id", null: false
