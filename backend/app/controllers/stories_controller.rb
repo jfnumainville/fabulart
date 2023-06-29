@@ -1,5 +1,6 @@
 class StoriesController < ApplicationController
   before_action :set_story, only: [:show, :update, :destroy]
+ # TODO: Need to adjust the authenticate_user method for Auth0
   before_action :authenticate_request!
 
   # GET /users/:user_id/stories
@@ -41,6 +42,13 @@ class StoriesController < ApplicationController
   end
 
   private
+
+  def set_user
+    current_user = Story.find(params[:user_id])
+
+  end
+
+
   # Use callbacks to share common setup or constraints between actions.
   def set_story
     @story = Story.find(params[:id])
