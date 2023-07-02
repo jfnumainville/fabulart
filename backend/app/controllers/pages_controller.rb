@@ -1,6 +1,8 @@
 class PagesController < ApplicationController
-  # TODO: Need to adjust the authenticate_user method for Auth0.
+  MAX_PROMPT_ATTEMPTS_PER_DAY = 50
+
   before_action :authenticate_user!
+  before_action :check_prompt_attempts, only: [:create, :update]
   before_action :set_story
   before_action :set_page, only: [:show, :update, :destroy]
 
@@ -18,10 +20,10 @@ class PagesController < ApplicationController
   # POST /users/:user_id/stories/:story_id/pages
   def create
     @page = @story.pages.new(page_params)
-    if @page.save
-      render json: @page, status: :created
-      current_user.update_attempts
 
+    if @page.save
+      current_user.update_attempts
+      render json: @page, status: :created
     else
       render json: @page.errors, status: :unprocessable_entity
     end
@@ -29,15 +31,13 @@ class PagesController < ApplicationController
 
   # PUT /users/:user_id/stories/:story_id/pages/:id
   def update
-    # This updated the page without saving it, the idea is for checking whether the user entered a new image_prompt value.
-    # If so, we want to increment that user's image prompt attempts for today.
     @page.assign_attributes(page_params)
 
     if @page.image_prompt_changed? # check if the image_prompt attribute has changed
       current_user.update_attempts
     end
 
-    if @page.save # save the object and its changes
+    if @page.save
       render json: @page
     else
       render json: @page.errors, status: :unprocessable_entity
@@ -53,11 +53,14 @@ class PagesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def authenticate_user
-
     current_user: Story.find(params[:user_id])
-
   end
 
+  def check_prompt_attempts
+    if current_user.prompt_attempts_today >= MAX_PROMPT_ATTEMPTS_PER_DAY
+      render json: { error: 'You have reached the maximum number of prompt attempts for today.' }, status: :forbidden
+    end
+  end
 
   def set_story
     @story = current_user.stories.find(params[:story_id])
