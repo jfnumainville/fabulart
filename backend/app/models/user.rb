@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_many stories, dependent: destroy
+  has_many :stories, dependent: :destroy
 
 
     # This method if for limitting the number of times a user generates an image to a certain number every day.

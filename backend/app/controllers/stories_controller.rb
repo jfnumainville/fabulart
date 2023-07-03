@@ -1,7 +1,7 @@
 class StoriesController < ApplicationController
   before_action :set_story, only: [:show, :update, :destroy]
- # TODO: Need to adjust the authenticate_user method for Auth0
-  before_action :authenticate_request!
+ # TODO: Need to create the authenticate_user method for Auth0
+ # before_action :authenticate_request!
 
   # GET /users/:user_id/stories
   def index
