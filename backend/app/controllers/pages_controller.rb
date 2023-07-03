@@ -2,7 +2,7 @@ class PagesController < ApplicationController
   #This is a constant of how many prompts a user can make in a given day.
   MAX_PROMPT_ATTEMPTS_PER_DAY = 50
  # TODO: Need to create the authenticate_user method for Auth0
- # before_action :authenticate_user!
+  before_action :authenticate_user
   before_action :check_prompt_attempts, only: [:create, :update]
   before_action :set_story
   before_action :set_page, only: [:show, :update, :destroy]
@@ -54,7 +54,7 @@ class PagesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def authenticate_user
-    @current_user = Story.find(params[:user_id])
+    @current_user = User.find(params[:user_id])
   end
 
   def check_prompt_attempts
