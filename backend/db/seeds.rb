@@ -16,18 +16,18 @@ puts "Creating users"
 
   puts "Creating stories"
   3.times do
-  p  story = user.stories.create!(
+    p story = user.stories.create!(
       title: Faker::Book.title,
       style: ['horror', 'adventure', 'fantasy'].sample
     )
 
     puts "Creating pages"
     3.times do |i|
-    p  story.pages.create!(
+      p story.pages.create!(
         page_number: i + 1,
         page_text: Faker::Lorem.paragraph(sentence_count: 10),
         image_prompt: Faker::Lorem.sentence(word_count: 3),
-        image_url: Faker::Placeholdit.image(size: "50x50")
+        image_url: Faker::Placeholdit.image(size: "1024x1024")
       )
     end
   end
