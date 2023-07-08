@@ -24,7 +24,11 @@ class PagesController < ApplicationController
 
     if @page.save
       @current_user.update_attempts
-      render json: @page, status: :created
+      render json: { page: @page, remaining_prompts
+
+      : remaining_prompts
+
+       }, status: :created
     else
       render json: @page.errors, status: :unprocessable_entity
     end
@@ -39,7 +43,11 @@ class PagesController < ApplicationController
     end
 
     if @page.save
-      render json: @page
+     render json: { page: @page, remaining_prompts
+
+     : remaining_prompts
+
+     }
     else
       render json: @page.errors, status: :unprocessable_entity
     end
@@ -73,6 +81,14 @@ class PagesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def page_params
-    params.require(:page).permit(:page_text, :prompt, :position)
+    params.require(:page).permit(:image_prompt, :image_url, :page_number, :page_text)
   end
+
+  # Calculates the number of remaining prompt for the dat the user has.
+  def remaining_prompts
+
+    MAX_PROMPT_ATTEMPTS_PER_DAY - @current_user.prompt_attempts_today
+
+  end
+
 end
