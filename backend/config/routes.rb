@@ -9,6 +9,4 @@ Rails.application.routes.draw do
     end
   end
 
-  # Route for creating the first page of a story, which also creates the story itself
-  post '/users/:user_id/stories/first_page', to: 'pages#create_first_page'
 end
