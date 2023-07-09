@@ -21,14 +21,11 @@ class PagesController < ApplicationController
   # POST /users/:user_id/stories/:story_id/pages
   def create
     @page = @story.pages.new(page_params)
+    @page.image_url = generate_image_url if @page.image_prompt
 
     if @page.save
       @current_user.update_attempts
-      render json: { page: @page, remaining_prompts
-
-      : remaining_prompts
-
-       }, status: :created
+       render json: { page: @page, remaining_prompts: remaining_prompts}, status: :created
     else
       render json: @page.errors, status: :unprocessable_entity
     end
@@ -40,14 +37,12 @@ class PagesController < ApplicationController
 
     if @page.image_prompt_changed? # check if the image_prompt attribute has changed
       @current_user.update_attempts
+      @page.image_url = generate_image_url
     end
 
     if @page.save
-     render json: { page: @page, remaining_prompts
+     render json: { page: @page, remaining_prompts: remaining_prompts}
 
-     : remaining_prompts
-
-     }
     else
       render json: @page.errors, status: :unprocessable_entity
     end
@@ -89,6 +84,36 @@ class PagesController < ApplicationController
 
     MAX_PROMPT_ATTEMPTS_PER_DAY - @current_user.prompt_attempts_today
 
+  end
+
+
+  #This method calls the DALL-E API and sets the image_url value to the url contained the response.
+  def generate_image_url
+    connection = Faraday.new('https://api.openai.com/v1/images/generations') do |conn|
+      conn.request :json
+      conn.headers['Authorization'] = "Bearer #{Rails.application.credentials.openai[:api_key]}"
+      conn.adapter Faraday.default_adapter
+    end
+
+    body = {
+      prompt: @page.image_prompt,
+      n: 1,
+      size: '1024x1024',
+      response_format: 'url'
+    }
+    response = connection.post do |req|
+      req.body = body
+      end
+
+    if response.success?
+      return JSON.parse(response.body)['data'][0]['url']
+    else
+      # handle the case where the DALL-E API does not respond successfully
+      return nil # or a default image URL
+    end
+  rescue Faraday::Error => e
+    # handle the case where the Faraday request itself fails (e.g., network error)
+    return nil # or a default image URL
   end
 
 end

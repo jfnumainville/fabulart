@@ -45,3 +45,6 @@ gem 'rack-cors'
 
 #For  populating data in the seed file.
 gem 'faker'
+
+# For calling the DALL-E API
+gem 'faraday'
