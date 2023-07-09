@@ -89,31 +89,36 @@ class PagesController < ApplicationController
 
   #This method calls the DALL-E API and sets the image_url value to the url contained the response.
   def generate_image_url
-    connection = Faraday.new('https://api.openai.com/v1/images/generations') do |conn|
-      conn.request :json
-      conn.headers['Authorization'] = "Bearer #{Rails.application.credentials.openai[:api_key]}"
-      conn.adapter Faraday.default_adapter
-    end
-
-    body = {
-      prompt: @page.image_prompt,
-      n: 1,
-      size: '1024x1024',
-      response_format: 'url'
-    }
-    response = connection.post do |req|
-      req.body = body
+    begin
+      connection = Faraday.new('https://api.openai.com/v1/images/generations') do |conn|
+        conn.request :json
+        conn.headers['Authorization'] = "Bearer #{Rails.application.credentials.openai[:api_key]}"
+        conn.adapter Faraday.default_adapter
       end
 
-    if response.success?
-      return JSON.parse(response.body)['data'][0]['url']
-    else
-      # handle the case where the DALL-E API does not respond successfully
-      return nil # or a default image URL
+      body = {
+        prompt: @page.image_prompt,
+        n: 1,
+        size: '1024x1024',
+        response_format: 'url'
+      }
+      response = connection.post do |req|
+        req.body = body
+      end
+
+      if response.success?
+        return JSON.parse(response.body)['data'][0]['url']
+      else
+        # Log the unsuccessful response details
+        Rails.logger.error("DALL-E API Unsuccessful Response: #{response.body}")
+        return nil # TODO: NEED to have front-end tell user to try again when the image_url value is null.
+      end
+    rescue Faraday::Error => e
+      # Log the Faraday error details
+      Rails.logger.error("Faraday Error: #{e.message}")
+      return nil # TODO: NEED  to have front-end tell user to try again when the image_url value is null.
     end
-  rescue Faraday::Error => e
-    # handle the case where the Faraday request itself fails (e.g., network error)
-    return nil # or a default image URL
   end
+
 
 end
