@@ -36,8 +36,9 @@ class PagesController < ApplicationController
     @page.assign_attributes(page_params)
 
     if @page.image_prompt_changed? # check if the image_prompt attribute has changed
-      @current_user.update_attempts if !@page.image_url.nil? # The number of remaining prompt attempts for the day will not be reduced if the DALL-E API didn't work.
       @page.image_url = generate_image_url
+      puts "The image url is #{@page.image_url}"
+      @current_user.update_attempts if !@page.image_url.nil? # The number of remaining prompt attempts for the day will not be reduced if the DALL-E API didn't work.
     end
 
     if @page.save
