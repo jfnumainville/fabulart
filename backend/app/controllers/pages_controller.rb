@@ -3,9 +3,9 @@ class PagesController < ApplicationController
   MAX_PROMPT_ATTEMPTS_PER_DAY = 50
  # TODO: Need to create the authenticate_user method for Auth0
   before_action :authenticate_user
-  before_action :check_prompt_attempts, only: [:create, :update]
+  before_action :check_prompt_attempts, only: [:create, :update, :regenerate]
   before_action :set_story
-  before_action :set_page, only: [:show, :update, :destroy]
+  before_action :set_page, only: [:show, :update, :regenerate, :destroy]
 
   # GET /users/:user_id/stories/:story_id/pages
   def index
@@ -48,6 +48,21 @@ class PagesController < ApplicationController
     end
   end
 
+  # POST /users/:user_id/stories/:story_id/pages/:id/regenerate
+  def regenerate
+    @page.image_url = generate_image_url
+    @current_user.update_attempts
+
+      if @page.save
+        render json: { page: @page, remaining_prompts: remaining_prompts}
+
+      else
+        render json: @page.errors, status: :unprocessable_entity
+      end
+  end
+
+
+
   # DELETE /users/:user_id/stories/:story_id/pages/:id
   def destroy
     @page.destroy
@@ -60,6 +75,7 @@ class PagesController < ApplicationController
     @current_user = User.find(params[:user_id])
   end
 
+  # This method returns a status forbidden in case that the user reached the maximum number of prompts allowed for the day.
   def check_prompt_attempts
     if @current_user.prompt_attempts_today >= MAX_PROMPT_ATTEMPTS_PER_DAY
       render json: { error: 'You have reached the maximum number of prompt attempts for today.' }, status: :forbidden
@@ -110,13 +126,15 @@ class PagesController < ApplicationController
         return JSON.parse(response.body)['data'][0]['url']
       else
         # Log the unsuccessful response details
+        # TODO: Need to have front-end tell user to try again when the image_url value is null.
+        # TODO: Need to setup the log rotation in PROD.
         Rails.logger.error("DALL-E API Unsuccessful Response: #{response.body}")
-        return nil # TODO: NEED to have front-end tell user to try again when the image_url value is null.
+        return nil
       end
     rescue Faraday::Error => e
       # Log the Faraday error details
       Rails.logger.error("Faraday Error: #{e.message}")
-      return nil # TODO: NEED  to have front-end tell user to try again when the image_url value is null.
+      return nil
     end
   end
 

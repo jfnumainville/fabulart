@@ -3,10 +3,11 @@ Rails.application.routes.draw do
   get '/auth/auth0/callback' => 'auth0#callback'
 
   #user routes
-   resources :users do
+  resources :users do
     resources :stories, only: [:index, :show, :create, :update, :destroy] do
-      resources :pages, only: [:index, :show, :create, :update, :destroy]
+      resources :pages, only: [:index, :show, :create, :update, :destroy] do
+        post :regenerate, on: :member
+      end
     end
   end
-
 end
