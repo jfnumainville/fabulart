@@ -36,7 +36,7 @@ class PagesController < ApplicationController
     @page.assign_attributes(page_params)
 
     if @page.image_prompt_changed? # check if the image_prompt attribute has changed
-      @current_user.update_attempts
+      @current_user.update_attempts if !@page.image_url.nil? # The number of remaining prompt attempts for the day will not be reduced if the DALL-E API didn't work.
       @page.image_url = generate_image_url
     end
 
@@ -51,7 +51,7 @@ class PagesController < ApplicationController
   # POST /users/:user_id/stories/:story_id/pages/:id/regenerate
   def regenerate
     @page.image_url = generate_image_url
-    @current_user.update_attempts
+    @current_user.update_attempts if !@page.image_url.nil?
 
       if @page.save
         render json: { page: @page, remaining_prompts: remaining_prompts}
