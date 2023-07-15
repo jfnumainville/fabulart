@@ -1,3 +1,13 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  # Auth0 callback route
+  get '/auth/auth0/callback' => 'auth0#callback'
+
+  #user routes
+  resources :users do
+    resources :stories, only: [:index, :show, :create, :update, :destroy] do
+      resources :pages, only: [:index, :show, :create, :update, :destroy] do
+        post :regenerate, on: :member
+      end
+    end
+  end
 end
