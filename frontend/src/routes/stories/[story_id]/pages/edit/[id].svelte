@@ -35,7 +35,7 @@
       body: JSON.stringify(pageData)
     });
 
-    // Handle response...
+    // Handle responses...
   };
 </script>
 
