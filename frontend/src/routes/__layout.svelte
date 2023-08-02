@@ -1,4 +1,3 @@
-<!-- src/routes/__layout.svelte -->
 <svelte:head>
   <title>Fabulart Layout</title>
   <link rel="stylesheet" href="/global.css" hydrate />
@@ -7,15 +6,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap" rel="stylesheet">
 </svelte:head>
 
-<main>    
-  <slot />
-</main>
+<!-- Entire page is rendered inside the slot -->
+<slot />
 
-<style>
-  /* add global styles here */
-  :global(body) {
-    font-family: 'Ubuntu', sans-serif;
-  }
+<style lang="scss">
+  @import '../global.scss';
 
   /* font wasn't applying to form textarea fields */
   :global(textarea) {

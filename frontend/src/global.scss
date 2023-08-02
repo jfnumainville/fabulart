@@ -1,0 +1,85 @@
+// General reset
+html,
+body,
+div,
+span,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+a,
+address,
+cite,
+code,
+img,
+ol,
+ul,
+li,
+form,
+label,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+figure,
+figcaption,
+footer,
+header,
+menu,
+nav,
+section,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    // Color scheme, these color variables can be used throughout the app to be consistent
+    --primary-grey: #242424;
+}
+
+body {
+    position: relative;
+    font-family: 'Ubuntu', sans-serif;
+    color: var(--primary-grey);
+    background-color: #fff;
+    line-height: 1.5;
+    
+    color-scheme: light; // Indicates that the content is optimized for the "light" color scheme
+    font-synthesis: none; // Controls how font weights are synthesized when the specified font family lacks the requested font weight
+    text-rendering: optimizeLegibility; // Instructs the browser to use additional rendering techniques that improve the sharpness and clarity of text.
+    -webkit-font-smoothing: antialiased; // For WebKit-based browsers (Safari, Chrome on macOS), controls font smoothing and antialiasing. "antialiased" improves font rendering by smoothing the jagged edges of characters.
+    -moz-osx-font-smoothing: grayscale; // For Mozilla Firefox on macOS, affects font smoothing and antialiasing. Grayscale antialiasing effect to improve font rendering.
+    -webkit-text-size-adjust: 100%;
+}
+
+a:hover,
+a:active {
+  text-decoration: none;
+}
+
+ol,
+ul {
+    list-style: none;
+}
+
+table {
+    border-collapse: collapse;
+}
