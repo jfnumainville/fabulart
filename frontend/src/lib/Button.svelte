@@ -8,13 +8,6 @@
     $: classes = `${textColor} ${bgColor} ${shape}`
 </script>
 
-<!-- TODO:
-- Make button shape settable from outside ✅
-- Make text color settable from outside ✅
-- Make background color settable from outside ✅
-- Make border settable from outside ✅
-- Make border color settable from outside ✅ -->
-
 {#if border}
 <a href="{url}" class="btn border {classes} {borderColor}"><slot>Try me</slot></a>
 {:else}

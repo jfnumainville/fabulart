@@ -1,4 +1,3 @@
-// General reset
 html,
 body,
 div,
@@ -51,13 +50,13 @@ video {
 }
 
 :root {
-    // Color scheme, these color variables can be used throughout the app to be consistent
+    // Color scheme, these color variables can be used throughout the app to remain consistent
     --primary-grey: #242424;
 }
 
 body {
     position: relative;
-    font-family: 'Ubuntu', sans-serif;
+    font-family: sans-serif, 'Ubuntu', sans-serif;
     color: var(--primary-grey);
     background-color: #fff;
     line-height: 1.5;
@@ -67,7 +66,7 @@ body {
     text-rendering: optimizeLegibility; // Instructs the browser to use additional rendering techniques that improve the sharpness and clarity of text.
     -webkit-font-smoothing: antialiased; // For WebKit-based browsers (Safari, Chrome on macOS), controls font smoothing and antialiasing. "antialiased" improves font rendering by smoothing the jagged edges of characters.
     -moz-osx-font-smoothing: grayscale; // For Mozilla Firefox on macOS, affects font smoothing and antialiasing. Grayscale antialiasing effect to improve font rendering.
-    -webkit-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%; /* Primarily for mobile, prevents browser from adjusting text size when user changes their browser's text size settings. Helps maintain original layout and design of the webpage. */
 }
 
 a:hover,

@@ -1,5 +1,5 @@
 <script>
-    import Layout from '../routes/__layout.svelte';
+    import Layout from '../__layout.svelte';
     export let action = '/';
     export let newStory = true;
     export let bgColor = 'bg-pink';

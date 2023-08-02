@@ -29,8 +29,8 @@ declare module '$env/static/private' {
 	export const TERM_PROGRAM: string;
 	export const NODE: string;
 	export const INIT_CWD: string;
-	export const SHELL: string;
 	export const TERM: string;
+	export const SHELL: string;
 	export const npm_config_metrics_registry: string;
 	export const TMPDIR: string;
 	export const npm_config_global_prefix: string;
@@ -39,7 +39,6 @@ declare module '$env/static/private' {
 	export const ORIGINAL_XDG_CURRENT_DESKTOP: string;
 	export const MallocNanoZone: string;
 	export const COLOR: string;
-	export const TERM_SESSION_ID: string;
 	export const npm_config_noproxy: string;
 	export const npm_config_local_prefix: string;
 	export const ZSH: string;
@@ -71,8 +70,8 @@ declare module '$env/static/private' {
 	export const npm_package_version: string;
 	export const XPC_SERVICE_NAME: string;
 	export const VSCODE_INJECTION: string;
-	export const HOME: string;
 	export const SHLVL: string;
+	export const HOME: string;
 	export const VSCODE_GIT_ASKPASS_MAIN: string;
 	export const npm_config_cache: string;
 	export const LESS: string;
@@ -118,8 +117,8 @@ declare module '$env/dynamic/private' {
 		TERM_PROGRAM: string;
 		NODE: string;
 		INIT_CWD: string;
-		SHELL: string;
 		TERM: string;
+		SHELL: string;
 		npm_config_metrics_registry: string;
 		TMPDIR: string;
 		npm_config_global_prefix: string;
@@ -128,7 +127,6 @@ declare module '$env/dynamic/private' {
 		ORIGINAL_XDG_CURRENT_DESKTOP: string;
 		MallocNanoZone: string;
 		COLOR: string;
-		TERM_SESSION_ID: string;
 		npm_config_noproxy: string;
 		npm_config_local_prefix: string;
 		ZSH: string;
@@ -160,8 +158,8 @@ declare module '$env/dynamic/private' {
 		npm_package_version: string;
 		XPC_SERVICE_NAME: string;
 		VSCODE_INJECTION: string;
-		HOME: string;
 		SHLVL: string;
+		HOME: string;
 		VSCODE_GIT_ASKPASS_MAIN: string;
 		npm_config_cache: string;
 		LESS: string;
