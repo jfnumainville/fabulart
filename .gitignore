@@ -1,4 +1,4 @@
 /backend/config/master.key
 /backend/tmp
 /backend/log/*
-node_modules/
+/frontend/node_modules/
