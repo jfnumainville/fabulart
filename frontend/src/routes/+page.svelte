@@ -1,6 +1,15 @@
 <script>
     import Layout from '../__layout.svelte';
     import Navbar from '../lib/Navbar.svelte';
+    import NewStory from '../lib/storyPages/NewStory.svelte';
+	
+
+
+
+    function createStory() {
+
+    }
+
 </script>
 
 <svelte:head>
@@ -12,11 +21,13 @@ It could be fun for them to pick a "pirate" avatar, which has no effect on the r
 
 <svelte:component this={Layout}>
     <Navbar />
-    <h1>Hello World</h1>
+    <section>
+        <NewStory />
+    </section>
     
 </svelte:component>
 
 
 <style>
-    
+
 </style>

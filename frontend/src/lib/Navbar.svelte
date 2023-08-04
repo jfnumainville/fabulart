@@ -27,6 +27,7 @@
         padding: 1.25rem;
         margin-bottom: 5rem;
         width: 100%;
+        box-shadow: 0 4px 8px #00000016;
         
         display: flex;
         justify-content: space-between;
@@ -44,6 +45,7 @@
         display: flex;
         justify-content: space-evenly;
         align-items: center;
+        gap: 1rem;
     }
 
     .book-icon,

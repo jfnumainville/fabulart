@@ -9,9 +9,9 @@
 </script>
 
 {#if border}
-<a href="{url}" class="btn border {classes} {borderColor}"><slot>Try me</slot></a>
+    <a href="{url}" class="btn border {classes} {borderColor}"><slot>Try me</slot></a>
 {:else}
-<a href="{url}" class="btn no-border {classes}"><slot>Try me</slot></a>
+    <a href="{url}" class="btn no-border {classes}"><slot>Try me</slot></a>
 {/if}
 
 <style>
@@ -21,6 +21,7 @@
         text-decoration: none;
         text-align: center;
         padding: 0.5rem 1rem;
+        color: #fff;
     }
 
     .btn:hover,
@@ -41,22 +42,28 @@
 
     .border-peach {
         border-color: #D98684;
+        color: #D98684;
     }
 
     .border-yellow {
         border-color: #FAD9A1;
+        color: #FAD9A1;
     }
 
     .border-blue {
         border-color: #339af0;
+        color: #339af0;
     }
 
     .border-red {
         border-color: #fa5252;
+        color: #fa5252;
     }
 
     .border-green {
         border-color: #51cf66;
+        color: #51cf66;
+
     }
 
     /* Button shape */
@@ -65,36 +72,7 @@
     }
 
     .square {
-        border-radius: 0.25rem; /* 4px */
-    }
-
-    /* Text colors */
-    .text-white {
-        color: #fff;
-    }
-
-    .text-black {
-        color: #2b2b2b;
-    }
-
-    .text-peach {
-        color: #D98684;
-    }
-
-    .text-yellow {
-        color: #FAD9A1;
-    }
-
-    .text-blue {
-        color: #339af0;
-    }
-
-    .text-red {
-        color: #fa5252;
-    }
-
-    .text-green {
-        color: #51cf66;
+        border-radius: 0.25rem;
     }
 
     /* Background colors */
@@ -108,6 +86,7 @@
 
     .bg-yellow {
         background-color: #FAD9A1;
+        text-shadow: 0 2px 8px #00000021;
     }
 
     .bg-blue {
