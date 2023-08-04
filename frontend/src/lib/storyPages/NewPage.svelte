@@ -1,39 +1,38 @@
 <script>
     import Button from '../buttons/Button.svelte';
 
-    let storyTitle = '';
     let imgDescription = '';
+    let pageText = '';
 
-    function createStory() {
+    function createPage() {
         // Here is where you can use the fetch API or something else to communicate with backend and send data
         console.log({
-            storyTitle: storyTitle,
-            imgDescription: imgDescription
+            imgDescription: imgDescription,
+            pageText: pageText
         })
 
         // Clear fields after submit
-        storyTitle = '';
         imgDescription = '';
+        pageText = '';
     }
-
 </script>
 
 <div class="container">
     <div class="new-story-card">
-        <img src="/story-template.png" alt="#">
+        <img src="/page-template.png" alt="#">
         <div class="page-text-wrapper">
             <form>
                 <div class="form-group">
-                    <label for="story-title">Story Title</label>
-                    <input bind:value={storyTitle} id="story-title" name="story-title" type="text" placeholder="Enter your story title here.">
+                    <label for="img-description">Image description</label>
+                    <textarea bind:value={imgDescription} name="img-description" id="img-description" placeholder="Describe the image you would like to see on the page."></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="img-description">Cover picture</label>
-                    <textarea bind:value={imgDescription} name="img-description" id="img-description" placeholder="Describe what picture you would like for your story cover."></textarea>
+                    <label for="page-text">Page text</label>
+                    <textarea bind:value={pageText} name="page-text" id="page-text" placeholder="Enter the text that will appear on the page."></textarea>
                 </div>
             </form>
             <footer>
-                <Button on:click={createStory} bgColor="bg-peach">Create</Button>
+                <Button on:click={createPage} bgColor="bg-peach">Create</Button>
             </footer>
         </div>
     </div>
@@ -74,7 +73,7 @@
         background-color: #fffaf7;
         padding: 2rem;
         height: 100%;
-        width: 45%;
+        flex-basis: 45%;
         min-width: 45%;
         min-width: 300px;
         border-radius: 0 0.5rem 0.5rem 0;
@@ -82,7 +81,7 @@
     
     .form-group {
         width: 100%;
-        margin-bottom: 2rem;
+        margin-bottom: 1.5rem;
     }
 
     label {
@@ -90,8 +89,8 @@
         font-size: 0.9rem;
     }
 
-    .form-group input,
     .form-group textarea {
+        height: 10rem;
         width: 100%;
         padding: 0.5rem;
         border-radius: 0.5rem;
@@ -102,12 +101,7 @@
         &:focus {
             outline: none;
             border: 2px solid var(--pink);
-
         }
-    }
-
-    textarea {
-        height: 10rem;
     }
 
     footer {

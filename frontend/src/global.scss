@@ -49,16 +49,25 @@ video {
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 :root {
     // Color scheme, these color variables can be used throughout the app to remain consistent
     --primary-grey: #242424;
+    --pink: #D98684;
+    --pink-hover: #cc8280;
+    --pink-active: #ca7e7d;
+
+    --yellow: #FAD9A1;
 }
 
 body {
     position: relative;
     font-family: sans-serif, 'Ubuntu', sans-serif;
     color: var(--primary-grey);
-    background-color: #fffaf7;
+    background-color: #fff7f7;
     line-height: 1.5;
     
     color-scheme: light; // Indicates that the content is optimized for the "light" color scheme
@@ -69,9 +78,17 @@ body {
     -webkit-text-size-adjust: 100%; /* Primarily for mobile, prevents browser from adjusting text size when user changes their browser's text size settings. Helps maintain original layout and design of the webpage. */
 }
 
-a:hover,
-a:active {
-  text-decoration: none;
+// For some reason, does not receive the font from body
+textarea {
+    font-family: sans-serif, 'Ubuntu', sans-serif;
+}
+
+a {
+    text-decoration: none;
+    &:hover,
+    &:active {
+        text-decoration: none;
+    }
 }
 
 ol,

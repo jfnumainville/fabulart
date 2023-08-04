@@ -1,5 +1,5 @@
 <script>
-    import Avatar from './Avatar.svelte';
+    import Avatar from './avatars/Avatar.svelte';
 
 </script>
 
@@ -21,11 +21,11 @@
     </div>
 </nav>
 
-<style>
+<style lang="scss">
     nav {
-        background-color: #FAD9A1;
-        padding: 1.25rem;
-        margin-bottom: 5rem;
+        background-color: var(--yellow);
+        padding: 1.75rem 1rem;
+        margin-bottom: 10rem;
         width: 100%;
         box-shadow: 0 4px 8px #00000016;
         
