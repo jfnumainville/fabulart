@@ -1,0 +1,17 @@
+{
+"hero_banner":{
+  "title": "Create Amazing Illustrated Stories with AI!",
+  "subtitle": "Unleash your creativity and bring your stories to life with AI-generated images.",
+  "start-button": "Start Now"
+},
+"sub_banner":{
+  "title": "Unleash your creativity effortlessly!",
+  "subtitle": "Simply provide an image description, craft your story, and continue the process for as many pages as desired.",
+  "featured_section_title":"Featured stories",
+  "start_button": "Get started"
+},
+"button":{
+  "text":"Click me"
+}
+
+}

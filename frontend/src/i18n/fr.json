@@ -1,0 +1,16 @@
+{
+  "hero_banner": {
+    "title": "Créez des histoires illustrées incroyables avec l'IA !",
+    "subtitle": "Libérez votre créativité et donnez vie à vos histoires avec des images générées par l'IA.",
+    "start-button": "Commencer maintenant"
+  },
+  "sub_banner": {
+    "title": "Libérez votre créativité sans effort !",
+    "subtitle": "Fournissez simplement une description d'image, rédigez votre histoire et continuez le processus pour autant de pages que vous le souhaitez.",
+    "featured_section_title": "Histoires en vedette",
+    "start_button": "Commencer"
+  },
+  "button": {
+    "text": "Cliquez ici"
+  }
+}
