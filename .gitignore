@@ -2,3 +2,4 @@
 /backend/tmp
 /backend/log/*
 /frontend/node_modules/
+/frontend/.svelte-kit/generated
