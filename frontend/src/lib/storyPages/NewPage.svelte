@@ -1,6 +1,6 @@
 <script>
     import Button from '../buttons/Button.svelte';
-
+    import { t } from 'svelte-i18n';
     let imgDescription = '';
     let pageText = '';
 
@@ -23,16 +23,16 @@
         <div class="page-text-wrapper">
             <form>
                 <div class="form-group">
-                    <label for="img-description">Image description</label>
-                    <textarea bind:value={imgDescription} name="img-description" id="img-description" placeholder="Describe the image you would like to see on the page."></textarea>
+                    <label for="img-description">{$t('NewPage.page_text')}</label>
+                    <textarea bind:value={imgDescription} name="img-description" id="img-description" placeholder={$t('NewPage.img_description')}></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="page-text">Page text</label>
-                    <textarea bind:value={pageText} name="page-text" id="page-text" placeholder="Enter the text that will appear on the page."></textarea>
+                    <label for="page-text">{$t('NewPage.page_text')}</label>
+                    <textarea bind:value={pageText} name="page-text" id="page-text" placeholder={$t('NewPage.page_text_placeholder')}></textarea>
                 </div>
             </form>
             <footer>
-                <Button on:click={createPage} bgColor="bg-peach">Create</Button>
+                <Button on:click={createPage} bgColor="bg-peach">{$t('NewPage.create_button')}</Button>
             </footer>
         </div>
     </div>
@@ -78,7 +78,7 @@
         min-width: 300px;
         border-radius: 0 0.5rem 0.5rem 0;
     }
-    
+
     .form-group {
         width: 100%;
         margin-bottom: 1.5rem;

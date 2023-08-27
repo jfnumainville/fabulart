@@ -1,4 +1,7 @@
 {
+  "button":{
+    "text":"Click me"
+},
 "hero_banner":{
   "title": "Create Amazing Illustrated Stories with AI!",
   "subtitle": "Unleash your creativity and bring your stories to life with AI-generated images.",
@@ -10,8 +13,29 @@
   "featured_section_title":"Featured stories",
   "start_button": "Get started"
 },
-"button":{
-  "text":"Click me"
+"NewPage":{
+  "img_description":"Image Description",
+  "img_placeholder": "Describe the image you would like to see on the page.",
+  "page_text": "Page Text",
+  "page_text_placeholder":"Enter the text that will appear on the page.",
+  "create_button": "Page creation"
+},
+
+"NewStory":{
+  "story_title":"Story Title",
+  "story_placeholder": "Enter your story title here.",
+  "cover_picture":"Cover picture",
+  "picture_placeholder": "Describe what picture you would like for your story cover.",
+  "create_button": "Story creation"
+},
+
+"page":{
+  "title":"Fabulart | Create your own story"
+},
+
+"+page":{
+  "step1":"Step 1. Create a new story!",
+  "step2":"Step 2. Add as many pages as you want!"
 }
 
 }

@@ -1,16 +1,37 @@
 {
   "hero_banner": {
-    "title": "Créez des histoires illustrées incroyables avec l'IA !",
-    "subtitle": "Libérez votre créativité et donnez vie à vos histoires avec des images générées par l'IA.",
-    "start-button": "Commencer maintenant"
+    "title": "Crée des histoires illustrées incroyables avec l'IA !",
+    "subtitle": "Libère ta créativité et donne vie à tes histoires avec des images générées par l'IA.",
+    "start-button": "Commence maintenant"
   },
   "sub_banner": {
-    "title": "Libérez votre créativité sans effort !",
-    "subtitle": "Fournissez simplement une description d'image, rédigez votre histoire et continuez le processus pour autant de pages que vous le souhaitez.",
+    "title": "Libère ta créativité sans effort !",
+    "subtitle": "Fournis simplement une description d'image, rédige ton histoire et continue le processus pour autant de pages que tu le souhaites.",
     "featured_section_title": "Histoires en vedette",
-    "start_button": "Commencer"
+    "start_button": "Commence"
   },
   "button": {
-    "text": "Cliquez ici"
+    "text": "Clique ici"
+  },
+  "NewPage":{
+    "img_description":"Description de l'image.",
+    "img_placeholder": "Décris l'image que tu souhaites voir sur cette page.",
+    "page_text": "Texte de la page",
+    "page_text_placeholder":"Écris le texte qui va appaitre sur cette page.",
+    "create_button": "Création de la page"
+  },
+  "NewStory":{
+    "story_title":"Titre de l'histoire",
+    "story_placeholder": "Écris le titre de ton histoire ici.",
+    "cover_picture":"Image de couverture",
+    "picture_placeholder": "Décris l'image de couverture que tu aimerais avoir.",
+    "create_button": "Création de l'histoire"
+  },
+  "page":{
+    "title":"Fabulart | Crée ta propre histoire"
+  },
+  "+page":{
+    "step1":"Étape 1: Crée une nouvelle histoire !",
+    "step2":"Étape 2: Ajoute autant de pages que tu le souhaites !"
   }
 }
