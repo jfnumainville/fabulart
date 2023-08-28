@@ -1,30 +1,46 @@
 <script>
-  import { init, dictionary, getLocaleFromNavigator } from 'svelte-i18n';
-  import { t } from 'svelte-i18n';
-
-
-  // Import translation files
+  import Navbar from './lib/Navbar.svelte'; // Import Navbar component
+  import { init, dictionary, getLocaleFromNavigator, locale } from 'svelte-i18n';
   import en from './i18n/en.json';
   import fr from './i18n/fr.json';
+  import { t } from 'svelte-i18n';
 
+  let selectedLang;
 
-      // Initialize the i18n library
+  if (typeof localStorage !== 'undefined') {
+    selectedLang = localStorage.getItem('language');
+  }
+
+  if (!selectedLang && typeof navigator !== 'undefined') {
+    const navigatorLang = getLocaleFromNavigator();
+    selectedLang = navigatorLang ? navigatorLang.substring(0, 2) : 'en';
+  } else {
+    selectedLang = 'en';
+  }
+
+  function setLanguage(lang) {
+    locale.set(lang);
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('language', lang);
+    }
+  }
+
   init({
     fallbackLocale: 'en',
-    initialLocale: (typeof navigator !== 'undefined') ? getLocaleFromNavigator().substring(0,2): "en"
+    initialLocale: selectedLang
   });
 
-    dictionary.set({ en, fr });
+  dictionary.set({ en, fr });
 </script>
+
+<Navbar {selectedLang} {setLanguage} />
 
 <svelte:head>
   <title>{$t('page.title')}</title>
 </svelte:head>
 
-<!-- Entire page is rendered inside the slot -->
 <slot />
 
 <style lang="scss">
   @import './global.scss';
-
 </style>

@@ -21,7 +21,6 @@
 It could be fun for them to pick a "pirate" avatar, which has no effect on the rest of the web app -->
 
 <svelte:component this={Layout}>
-    <Navbar />
     <section>
         <HeroBanner />
     </section>
