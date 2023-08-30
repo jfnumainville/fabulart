@@ -11,19 +11,27 @@
     selectedLang = localStorage.getItem('language');
   }
 
-  if (!selectedLang && typeof navigator !== 'undefined') {
+  if (typeof navigator !== 'undefined') {
     const navigatorLang = getLocaleFromNavigator();
     selectedLang = navigatorLang ? navigatorLang.substring(0, 2) : 'en';
   } else {
     selectedLang = 'en';
   }
 
+    //This is for preventing the language dropdown to be empty when the browser language isn't English or French.
+    //TODO: Need to exclude Spanish from this condition when adding this language to  the translation file
+  if (selectedLang !="fr"){
+    selectedLang = 'en';
+  }
+
+   setLanguage(selectedLang)
+
   function setLanguage(lang) {
     locale.set(lang);
     if (typeof localStorage !== 'undefined') {
       localStorage.setItem('language', lang);
     }
-  }
+   }
 
   init({
     fallbackLocale: 'en',

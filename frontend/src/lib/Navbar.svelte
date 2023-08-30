@@ -2,6 +2,7 @@
     import Avatar from './avatars/Avatar.svelte';
     export let selectedLang;
     export let setLanguage;
+    console.log("The selctedLang is navbar is " + selectedLang)
 </script>
 
 <nav>
@@ -12,6 +13,7 @@
         <h1 class="nav-title">Fabulart</h1>
     </div>
     <div class="nav-social-wrapper">
+      <span class="language-icon">🌍</span>
       <select bind:value={selectedLang} on:change={() => setLanguage(selectedLang)}>
         <option value="en">English</option>
         <option value="fr">Français</option>
@@ -61,4 +63,22 @@
         stroke: var(--primary-grey);
         height: 2rem;
     }
+
+    select {
+        background-color: var(--yellow);
+        color: var(--primary-grey);
+        font-family: sans-serif, 'Ubuntu', sans-serif;
+        font-size: 1.1rem;
+        padding: 0.5rem 1rem;
+        border: 1px solid var(--primary-grey);
+        cursor: pointer;
+        box-shadow: 0 2px 4px #00000016;
+        appearance: none;
+        border-radius: 8px;
+    }
+
+    .language-icon {
+        cursor: pointer;
+    }
+
 </style>
