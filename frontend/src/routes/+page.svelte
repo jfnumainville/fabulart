@@ -5,7 +5,7 @@
     import NewPage from '../lib/storyPages/NewPage.svelte';
     import HeroBanner from '../lib/banners/HeroBanner.svelte';
     import SubBanner from '../lib/banners/SubBanner.svelte';
-
+    import { t } from 'svelte-i18n';
     const user = {
         username: 'Jacob#3254',
         password: 'password',
@@ -14,18 +14,13 @@
         featuredStories: []
     }
 
-    
-</script>
 
-<svelte:head>
-    <title>Fabulart | Create your own story with AI generated images</title>
-</svelte:head>
+</script>
 
 <!-- TODO: We should have cartoon avatars for the kids to select since they won't use their photos.
 It could be fun for them to pick a "pirate" avatar, which has no effect on the rest of the web app -->
 
 <svelte:component this={Layout}>
-    <Navbar />
     <section>
         <HeroBanner />
     </section>
@@ -43,11 +38,11 @@ It could be fun for them to pick a "pirate" avatar, which has no effect on the r
         <SubBanner />
     </section>
     <section id="new-story-section" class="new-story-section">
-        <h2>Step 1. Create a new story!</h2>
+        <h2>{$t('+page.step1')}</h2>
         <NewStory />
     </section>
     <section class="new-page-section">
-        <h2>Step 2. Add as many pages as you want!</h2>
+        <h2>{$t('+page.step2')}</h2>
         <NewPage />
     </section>
     <footer>
@@ -57,7 +52,7 @@ It could be fun for them to pick a "pirate" avatar, which has no effect on the r
             </svg>
         </div>
     </footer>
-    
+
 </svelte:component>
 
 

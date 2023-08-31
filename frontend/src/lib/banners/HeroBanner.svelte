@@ -1,14 +1,15 @@
 <script>
     import Button from '../buttons/Button.svelte';
+    import { t } from 'svelte-i18n';
 </script>
 
 <div class="container">
     <div class="hero-banner">
         <div class="text-wrapper">
-            <h2 class="title">Create Amazing Illustrated Stories with AI!</h2>
-            <p class="subtitle">Unleash your creativity and bring your stories to life with AI-generated images.</p>
-            <footer>
-                <Button url="#sub-banner-section" bgColor="bg-peach">Start Now</Button>
+            <h2 class="title">{$t('hero_banner.title')}</h2>
+            <p class="subtitle">{$t('hero_banner.subtitle')}</p>
+             <footer>
+                <Button url="#sub-banner-section" bgColor="bg-peach">{$t('hero_banner.start-button')}</Button>
             </footer>
         </div>
         <img src="/hero-banner.png" alt="a kid playing a computer game.">
@@ -64,7 +65,7 @@
         font-size: 1.25rem;
         font-weight: lighter;
     }
-    
+
     footer {
         position: absolute;
         bottom: 1rem;
@@ -72,5 +73,5 @@
         transform: translateX(-50%);
         width: 50%;
     }
-    
+
 </style>

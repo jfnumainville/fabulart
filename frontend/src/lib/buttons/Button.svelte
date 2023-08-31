@@ -2,11 +2,12 @@
     export let bgColor = 'bg-none';
     export let shape = 'square'
     export let url = null;
+    import { t } from 'svelte-i18n';
     $: classes = `${bgColor} ${shape}`
 </script>
 
 <a on:click href="{url}" class="btn no-border {classes}">
-    <slot>Click me</slot>
+    <slot>{$t('button.text')}</slot>
 </a>
 
 <style lang="scss">
@@ -31,7 +32,7 @@
 
     /* Button shape */
     .round {
-        border-radius: 100px; 
+        border-radius: 100px;
     }
 
     .square {

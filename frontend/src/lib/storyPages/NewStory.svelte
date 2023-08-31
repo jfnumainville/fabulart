@@ -1,6 +1,6 @@
 <script>
     import Button from '../buttons/Button.svelte';
-
+    import { t } from 'svelte-i18n';
     let storyTitle = '';
     let imgDescription = '';
 
@@ -24,16 +24,16 @@
         <div class="page-text-wrapper">
             <form>
                 <div class="form-group">
-                    <label for="story-title">Story Title</label>
-                    <input bind:value={storyTitle} id="story-title" name="story-title" type="text" placeholder="Enter your story title here.">
+                    <label for="story-title">{$t('NewStory.story_title')}</label>
+                    <input bind:value={storyTitle} id="story-title" name="story-title" type="text" placeholder={$t('NewStory.story_placeholder')}>
                 </div>
                 <div class="form-group">
-                    <label for="img-description">Cover picture</label>
-                    <textarea bind:value={imgDescription} name="img-description" id="img-description" placeholder="Describe what picture you would like for your story cover."></textarea>
+                    <label for="img-description">{$t('NewStory.cover_picture')}</label>
+                    <textarea bind:value={imgDescription} name="img-description" id="img-description" placeholder={$t('NewStory.picture_placeholder')}></textarea>
                 </div>
             </form>
             <footer>
-                <Button on:click={createStory} bgColor="bg-peach">Create</Button>
+                <Button on:click={createStory} bgColor="bg-peach">{$t('NewStory.create_button')}</Button>
             </footer>
         </div>
     </div>
@@ -79,7 +79,7 @@
         min-width: 300px;
         border-radius: 0 0.5rem 0.5rem 0;
     }
-    
+
     .form-group {
         width: 100%;
         margin-bottom: 2rem;

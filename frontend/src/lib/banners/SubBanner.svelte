@@ -1,18 +1,19 @@
 <script>
     import Button from '../buttons/Button.svelte';
+    import { t } from 'svelte-i18n';
 </script>
 
 <div class="container">
     <div class="banner">
         <div class="text-wrapper">
-            <h2 class="title">Unleash your creativity effortlessly!</h2>
-            <p class="subtitle">Simply provide an image description, craft your story, and continue the process for as many pages as desired.</p>
+            <h2 class="title">{$t('sub_banner.title')}</h2>
+            <p class="subtitle">{$t('sub_banner.subtitle')}</p>
         </div>
         <img src="/sub-banner.png" alt="a kid playing a computer game.">
     </div>
-    
+
     <section class="featured-section">
-        <h2 class="featured-section-title">Featured stories</h2>
+        <h2 class="featured-section-title">{$t('sub_banner.featured_section_title')}</h2>
         <div class="stories-grid">
             <div class="story-wrapper">
                 <!-- svelte-ignore a11y-img-redundant-alt -->
@@ -33,7 +34,7 @@
             </div>
         </div>
         <footer>
-            <Button url="#new-story-section" bgColor="bg-peach">Get started</Button>
+            <Button url="#new-story-section" bgColor="bg-peach">{$t('sub_banner.start_button')}</Button>
         </footer>
     </section>
 </div>
@@ -88,7 +89,7 @@
         font-weight: lighter;
         margin-bottom: 8rem;
     }
-    
+
     .stories-grid {
         margin-bottom: 5rem;
 

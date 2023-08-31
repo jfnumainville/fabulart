@@ -1,4 +1,5 @@
 import { c as create_ssr_component, v as validate_component, m as missing_component } from "../../chunks/index.js";
+import { t } from 'svelte-i18n';
 const __layout_svelte_svelte_type_style_lang = "";
 const css = {
   code: "@import './global.scss';",
@@ -6,14 +7,14 @@ const css = {
 };
 const _layout = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   $$result.css.add(css);
-  return `${$$result.head += `<!-- HEAD_svelte-1r58gxo_START -->${$$result.title = `<title>Fabulart Layout</title>`, ""}<!-- HEAD_svelte-1r58gxo_END -->`, ""}
+  return `${$$result.head += `<!-- HEAD_svelte-1r58gxo_START -->${$$result.title = `<title>{$t('_page.title')}</title>`, ""}<!-- HEAD_svelte-1r58gxo_END -->`, ""}
 
 
 ${slots.default ? slots.default({}) : ``}`;
 });
 const Navbar_svelte_svelte_type_style_lang = "";
 const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  return `${$$result.head += `<!-- HEAD_svelte-162ipmn_START -->${$$result.title = `<title>Fabulart | Create your own story with AI generated images</title>`, ""}<!-- HEAD_svelte-162ipmn_END -->`, ""}
+  return `${$$result.head += `<!-- HEAD_svelte-162ipmn_START -->${$$result.title = `<title>{$t('_page.title')}</title>`, ""}<!-- HEAD_svelte-162ipmn_END -->`, ""}
 
 
 
