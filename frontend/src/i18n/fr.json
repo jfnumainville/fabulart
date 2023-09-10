@@ -1,11 +1,11 @@
 {
   "hero_banner": {
-    "title": "Crée des histoires illustrées incroyables avec l'IA !",
+    "title": "Crée des histoires illustrées incroyables avec l'IA!",
     "subtitle": "Libère ta créativité et donne vie à tes histoires avec des images générées par l'IA.",
     "start-button": "Commence maintenant"
   },
   "sub_banner": {
-    "title": "Libère ta créativité sans effort !",
+    "title": "Libère ta créativité sans effort!",
     "subtitle": "Fournis simplement une description d'image, rédige ton histoire et continue le processus pour autant de pages que tu le souhaites.",
     "featured_section_title": "Histoires en vedette",
     "start_button": "Commence"
@@ -31,7 +31,7 @@
     "title":"Fabulart | Crée ta propre histoire"
   },
   "+page":{
-    "step1":"Étape 1: Crée une nouvelle histoire !",
-    "step2":"Étape 2: Ajoute autant de pages que tu le souhaites !"
+    "step1":"Étape 1: Crée une nouvelle histoire!",
+    "step2":"Étape 2: Ajoute autant de pages que tu le souhaites!"
   }
 }
