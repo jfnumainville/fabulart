@@ -67,7 +67,7 @@
     select {
         background-color: var(--yellow);
         color: var(--primary-grey);
-        font-family: sans-serif, 'Ubuntu', sans-serif;
+        font-family: sans-serif, 'Ubuntu';
         font-size: 1.1rem;
         padding: 0.5rem 1rem;
         border: 1px solid var(--primary-grey);
