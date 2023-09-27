@@ -65,11 +65,11 @@ html {
 
 body {
     position: relative;
-    font-family: sans-serif, 'Ubuntu', sans-serif;
+    font-family: sans-serif, 'Ubuntu';
     color: var(--primary-grey);
     background-color: #fff7f7;
     line-height: 1.5;
-    
+
     color-scheme: light; // Indicates that the content is optimized for the "light" color scheme
     font-synthesis: none; // Controls how font weights are synthesized when the specified font family lacks the requested font weight
     text-rendering: optimizeLegibility; // Instructs the browser to use additional rendering techniques that improve the sharpness and clarity of text.
@@ -80,7 +80,7 @@ body {
 
 // For some reason, does not receive the font from body
 textarea {
-    font-family: sans-serif, 'Ubuntu', sans-serif;
+    font-family: sans-serif, 'Ubuntu';
 }
 
 a {

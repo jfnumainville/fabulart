@@ -1,9 +1,14 @@
 <script context="module">
+	import { listen } from "svelte/internal";
+
+
   export async function load({ params }) {
     const { userId, storyId, pageId } = params;
 
+    let pageIsnew = (pageId == 'new')
+
     let pageData;
-    if (pageId !== 'new') {
+    if (pageIsnew) {
       // If it's not 'new', fetch the existing page data
       const res = await fetch(`/api/users/${userId}/stories/${storyId}/pages/${pageId}`);
       pageData = await res.json();
