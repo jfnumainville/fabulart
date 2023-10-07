@@ -3,3 +3,4 @@
 /backend/log/*
 /frontend/node_modules/
 /frontend/.svelte-kit/generated/*
+/frontend/.svelte-kit/
