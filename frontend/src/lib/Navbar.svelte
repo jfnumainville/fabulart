@@ -2,7 +2,6 @@
     import Avatar from './avatars/Avatar.svelte';
     export let selectedLang;
     export let setLanguage;
-    console.log("The selctedLang is navbar is " + selectedLang)
 </script>
 
 <nav>
