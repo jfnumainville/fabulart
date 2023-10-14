@@ -10,7 +10,13 @@ export const createStory = async (userId, title, style) => {
     body: JSON.stringify({ title, style }),
   });
 
-  if (!response.ok) {
+  if (response.status === 201) {
+    const data = await response.json();
+    console.log("The story id is " + data.id)
+    return data.id;
+  }
+
+  else  {
     throw new Error(`Failed to create story: ${response.statusText}`);
   }
 
