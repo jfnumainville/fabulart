@@ -5,7 +5,7 @@
     let imgDescription = '';
 
     function createStory() {
-        // Here is where you can use the fetch API or something else to communicate with backend and send data
+        // Here is where you can use the fetch API or something else to communicate with backend and send data.
         console.log({
             storyTitle: storyTitle,
             imgDescription: imgDescription
