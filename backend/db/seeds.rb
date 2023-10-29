@@ -18,7 +18,9 @@ puts "Creating users"
   3.times do
     p story = user.stories.create!(
       title: Faker::Book.title,
-      style: ['horror', 'adventure', 'fantasy'].sample
+      style: ['horror', 'adventure', 'fantasy'].sample,
+      image_prompt: Faker::Lorem.sentence(word_count: 3),
+      image_url: Faker::Placeholdit.image(size: "1024x1024")
     )
 
     puts "Creating pages"
