@@ -14,6 +14,7 @@ class StoriesController < ApplicationController
   def create
     @user = User.find(params[:user_id])
     @story = @user.stories.new(story_params)
+    @story.image_url = ImageGenerationService.generate_image_url(@story.image_prompt)
 
     if @story.save
       render json: @story, status: :created
@@ -56,6 +57,6 @@ class StoriesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def story_params
-    params.require(:story).permit(:title, :style)
+    params.require(:story).permit(:title, :style, :image_prompt)
   end
 end

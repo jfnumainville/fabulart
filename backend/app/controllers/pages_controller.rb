@@ -21,7 +21,7 @@ class PagesController < ApplicationController
   # POST /users/:user_id/stories/:story_id/pages
   def create
     @page = @story.pages.new(page_params)
-    @page.image_url = generate_image_url if @page.image_prompt
+    @page.image_url = ImageGenerationService.generate_image_url(@page.image_prompt) if @page.image_prompt
 
     if @page.save
       @current_user.update_attempts
@@ -36,7 +36,7 @@ class PagesController < ApplicationController
     @page.assign_attributes(page_params)
 
     if @page.image_prompt_changed? # check if the image_prompt attribute has changed
-      @page.image_url = generate_image_url
+      @page.image_url = ImageGenerationService.generate_image_url(@page.image_prompt)
       puts "The image url is #{@page.image_url}"
       @current_user.update_attempts if !@page.image_url.nil? # The number of remaining prompt attempts for the day will not be reduced if the DALL-E API didn't work.
     end
@@ -51,7 +51,7 @@ class PagesController < ApplicationController
 
   # POST /users/:user_id/stories/:story_id/pages/:id/regenerate
   def regenerate
-    @page.image_url = generate_image_url
+    @page.image_url = ImageGenerationService.generate_image_url(@page.image_prompt)
     @current_user.update_attempts if !@page.image_url.nil?
 
       if @page.save
@@ -100,44 +100,5 @@ class PagesController < ApplicationController
   def remaining_prompts
 
     MAX_PROMPT_ATTEMPTS_PER_DAY - @current_user.prompt_attempts_today
-
   end
-
-
-  #This method calls the DALL-E API and sets the image_url value to the url contained the response.
-  def generate_image_url
-    begin
-      connection = Faraday.new('https://api.openai.com/v1/images/generations') do |conn|
-        conn.request :json
-        conn.headers['Authorization'] = "Bearer #{Rails.application.credentials.openai[:api_key]}"
-        conn.adapter Faraday.default_adapter
-      end
-
-      body = {
-        prompt: @page.image_prompt,
-        n: 1,
-        size: '1024x1024',
-        response_format: 'url'
-      }
-      response = connection.post do |req|
-        req.body = body
-      end
-
-      if response.success?
-        return JSON.parse(response.body)['data'][0]['url']
-      else
-        # Log the unsuccessful response details
-        # TODO: Need to have front-end tell user to try again when the image_url value is null.
-        # TODO: Need to setup the log rotation in PROD.
-        Rails.logger.error("DALL-E API Unsuccessful Response: #{response.body}")
-        return nil
-      end
-    rescue Faraday::Error => e
-      # Log the Faraday error details
-      Rails.logger.error("Faraday Error: #{e.message}")
-      return nil
-    end
-  end
-
-
 end
