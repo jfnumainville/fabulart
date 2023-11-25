@@ -17,7 +17,13 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'localhost:5000', 'your-production-url.com'
+    if Rails.env.production?
+      origins 'https://www.myproductionapp.com' #TODO: Need to set with prod actual URL.
+    elsif Rails.env.staging?
+      origins 'https://staging.myapp.com' #TODO: Need to set with staging actual URL.*
+    else
+      origins 'localhost:5000', '127.0.0.1:3030','localhost:3030'
+    end
     resource '*',
              headers: :any,
              methods: [:get, :post, :put, :patch, :delete, :options, :head],

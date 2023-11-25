@@ -1,26 +1,43 @@
 <script>
     import Button from '../buttons/Button.svelte';
     import { t } from 'svelte-i18n';
+
+    // Use import.meta.env to access environment variables set in vite.config.js
+    const apiEndpoint = process.env.API_ENDPOINT;
     let storyTitle = '';
     let imgDescription = '';
+    let imageUrl = null; // Initialize as null
 
-    function createStory() {
-        // Here is where you can use the fetch API or something else to communicate with backend and send data.
-        console.log({
-            storyTitle: storyTitle,
-            imgDescription: imgDescription
-        })
+    async function createStory() {
+        const userId = 1; // Since user management isn't in place yet
+        const url = `${apiEndpoint}/users/${userId}/stories`;
+        const payload = {
+          title: storyTitle,
+          style: "Neo", // TODO: Remove hardcoded value
+          image_prompt: imgDescription,
+      };
 
-        // Clear fields after submit
-        storyTitle = '';
-        imgDescription = '';
-    }
+      const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+      });
 
+      if (response.status === 201) {
+          const data = await response.json();
+          imageUrl = data.image_url; // Update image URL only if API call is successful
+          console.log("Story created, ID:", data.id);
+      } else {
+          console.log(`Failed to create story: ${response.statusText}`);
+      }
+  }
 </script>
 
 <div class="container">
     <div class="new-story-card">
-        <img src="/story-template.png" alt="#">
+        <img src={imageUrl ? imageUrl : '/story-template.png'} alt={imgDescription? imgDescription : "Placeholder story image"}>
         <div class="page-text-wrapper">
             <form>
                 <div class="form-group">
