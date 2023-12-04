@@ -25,7 +25,8 @@
     "story_placeholder": "Écris le titre de ton histoire ici.",
     "cover_picture":"Image de couverture",
     "picture_placeholder": "Décris l'image de couverture que tu aimerais avoir.",
-    "create_button": "Création de l'histoire"
+    "create_button": "Création de l'histoire",
+    "update_button": "Mets à jour ton histoire"
   },
   "page":{
     "title":"Fabulart | Crée ta propre histoire"

@@ -2,15 +2,32 @@
     import Button from '../buttons/Button.svelte';
     import { t } from 'svelte-i18n';
 
-    // Use import.meta.env to access environment variables set in vite.config.js
+    // Use process.env to access environment variables set in vite.config.js
     const apiEndpoint = process.env.API_ENDPOINT;
     let storyTitle = '';
     let imgDescription = '';
-    let imageUrl = null; // Initialize as null
+    let imageUrl = null;
+    const userId = 1; // Since user management isn't in place yet
+    let storyId = null;
+    let isLoading = false;
+    let buttonText = storyId ? $t('NewStory.update_button') : $t('NewStory.create_button');
+
 
     async function createStory() {
-        const userId = 1; // Since user management isn't in place yet
-        const url = `${apiEndpoint}/users/${userId}/stories`;
+        let url = "";
+        let methodType = "";
+        isLoading = true;
+
+      if (storyId){
+        url = `${apiEndpoint}/users/${userId}/stories/${storyId}`;
+        methodType = 'PUT';
+      }
+
+      else {
+        url =  url = `${apiEndpoint}/users/${userId}/stories`;
+        methodType = 'POST';
+      }
+
         const payload = {
           title: storyTitle,
           style: "Neo", // TODO: Remove hardcoded value
@@ -18,43 +35,48 @@
       };
 
       const response = await fetch(url, {
-          method: 'POST',
+          method: methodType,
           headers: {
               'Content-Type': 'application/json'
           },
           body: JSON.stringify(payload)
       });
-
-      if (response.status === 201) {
+      isLoading = false;
+      if (response.status === 201 || response.status === 200 ) {
           const data = await response.json();
           imageUrl = data.image_url; // Update image URL only if API call is successful
-          console.log("Story created, ID:", data.id);
+          buttonText =  $t('NewStory.update_button')
+          storyId = data.id
+          console.log("Story created or updated, ID:", data.id);
       } else {
           console.log(`Failed to create story: ${response.statusText}`);
       }
   }
 </script>
-
-<div class="container">
-    <div class="new-story-card">
-        <img src={imageUrl ? imageUrl : '/story-template.png'} alt={imgDescription? imgDescription : "Placeholder story image"}>
-        <div class="page-text-wrapper">
-            <form>
-                <div class="form-group">
-                    <label for="story-title">{$t('NewStory.story_title')}</label>
-                    <input bind:value={storyTitle} id="story-title" name="story-title" type="text" placeholder={$t('NewStory.story_placeholder')}>
-                </div>
-                <div class="form-group">
-                    <label for="img-description">{$t('NewStory.cover_picture')}</label>
-                    <textarea bind:value={imgDescription} name="img-description" id="img-description" placeholder={$t('NewStory.picture_placeholder')}></textarea>
-                </div>
-            </form>
-            <footer>
-                <Button on:click={createStory} bgColor="bg-peach">{$t('NewStory.create_button')}</Button>
-            </footer>
+   <div class="container">
+        <div class="new-story-card">
+            <img src={imageUrl ? imageUrl : '/story-template.png'} alt={imgDescription? imgDescription : "Placeholder story image"}>
+            <div class="page-text-wrapper">
+                <form>
+                    <div class="form-group">
+                        <label for="story-title">{$t('NewStory.story_title')}</label>
+                        <input bind:value={storyTitle} id="story-title" name="story-title" type="text" placeholder={$t('NewStory.story_placeholder')}>
+                    </div>
+                    <div class="form-group">
+                        <label for="img-description">{$t('NewStory.cover_picture')}</label>
+                        <textarea bind:value={imgDescription} name="img-description" id="img-description" placeholder={$t('NewStory.picture_placeholder')}></textarea>
+                    </div>
+                </form>
+                <footer>
+                  {#if isLoading}
+                    <div class="spinner-border text-warning" role="status"></div>
+                  {:else}
+                    <Button on:click={createStory} bgColor="bg-peach">{buttonText}</Button>
+                  {/if}
+                </footer>
+            </div>
         </div>
     </div>
-</div>
 
 <style lang="scss">
     .container {
@@ -133,4 +155,5 @@
         left: 50%;
         transform: translateX(-50%);
     }
+
 </style>

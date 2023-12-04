@@ -19,14 +19,15 @@
   "page_text": "Page Text",
   "page_text_placeholder":"Enter the text that will appear on the page.",
   "create_button": "Page creation"
-},
+ },
 
 "NewStory":{
   "story_title":"Story Title",
   "story_placeholder": "Enter your story title here.",
   "cover_picture":"Cover picture",
   "picture_placeholder": "Describe what picture you would like for your story cover.",
-  "create_button": "Story creation"
+  "create_button": "Create your story",
+  "update_button": "Update your story"
 },
 
 "page":{
