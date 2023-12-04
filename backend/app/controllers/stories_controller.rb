@@ -1,5 +1,6 @@
 class StoriesController < ApplicationController
   before_action :set_story, only: [:show, :update, :destroy]
+  before_action :authenticate_user
  # TODO: Need to create the authenticate_user method for Auth0
  # before_action :authenticate_request!
 
@@ -15,6 +16,7 @@ class StoriesController < ApplicationController
     @user = User.find(params[:user_id])
     @story = @user.stories.new(story_params)
     @story.image_url = ImageGenerationService.generate_image_url(@story.image_prompt)
+    @current_user.update_attempts if !@story.image_url.nil?
 
     if @story.save
       render json: @story, status: :created
@@ -25,7 +27,15 @@ class StoriesController < ApplicationController
 
   # PUT /users/:user_id/stories/:id
   def update
-    if @story.update(story_params)
+      @story.assign_attributes(story_params)
+
+    if @story.image_prompt_changed?
+      @story.image_url = ImageGenerationService.generate_image_url(@story.image_prompt)
+      @current_user.update_attempts if !@story.image_url.nil?
+    end
+
+
+    if @story.save
       render json: @story
     else
       render json: @story.errors, status: :unprocessable_entity
@@ -44,10 +54,10 @@ class StoriesController < ApplicationController
 
   private
 
-  def set_user
-    current_user = Story.find(params[:user_id])
-
-  end
+  def authenticate_user
+    @current_user = User.find(params[:user_id])
+    p "The current_user is " + @current_user.to_s
+    end
 
 
   # Use callbacks to share common setup or constraints between actions.
