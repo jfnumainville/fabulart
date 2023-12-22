@@ -1,6 +1,4 @@
 class PagesController < ApplicationController
-  #This is a constant of how many prompts a user can make in a given day.
-  MAX_PROMPT_ATTEMPTS_PER_DAY = 50
  # TODO: Need to create the authenticate_user method for Auth0
   before_action :authenticate_user
   before_action :check_prompt_attempts, only: [:create, :update, :regenerate]
@@ -21,11 +19,11 @@ class PagesController < ApplicationController
   # POST /users/:user_id/stories/:story_id/pages
   def create
     @page = @story.pages.new(page_params)
-    @page.image_url = ImageGenerationService.generate_image_url(@page.image_prompt) if @page.image_prompt
+    @page.image_url = ImageGenerationService.generate_image_url(@page.image_prompt, @current_user) if @page.image_prompt
 
     if @page.save
       @current_user.update_attempts
-       render json: { page: @page, remaining_prompts: remaining_prompts}, status: :created
+       render json: { page: @page, remaining_prompts: ImageGenerationService.remaining_prompts(@current_user)}, status: :created
     else
       render json: @page.errors, status: :unprocessable_entity
     end
@@ -36,13 +34,11 @@ class PagesController < ApplicationController
     @page.assign_attributes(page_params)
 
     if @page.image_prompt_changed? # check if the image_prompt attribute has changed
-      @page.image_url = ImageGenerationService.generate_image_url(@page.image_prompt)
-      puts "The image url is #{@page.image_url}"
-      @current_user.update_attempts if !@page.image_url.nil? # The number of remaining prompt attempts for the day will not be reduced if the DALL-E API didn't work.
+      @page.image_url = ImageGenerationService.generate_image_url(@page.image_prompt, @current_user)
     end
 
     if @page.save
-     render json: { page: @page, remaining_prompts: remaining_prompts}
+     render json: { page: @page, remaining_prompts: ImageGenerationService.remaining_prompts(@current_user)}
 
     else
       render json: @page.errors, status: :unprocessable_entity
@@ -51,11 +47,10 @@ class PagesController < ApplicationController
 
   # POST /users/:user_id/stories/:story_id/pages/:id/regenerate
   def regenerate
-    @page.image_url = ImageGenerationService.generate_image_url(@page.image_prompt)
-    @current_user.update_attempts if !@page.image_url.nil?
+    @page.image_url = ImageGenerationService.generate_image_url(@page.image_prompt, @current_user)
 
       if @page.save
-        render json: { page: @page, remaining_prompts: remaining_prompts}
+        render json: { page: @page, remaining_prompts: ImageGenerationService.remaining_prompts(@current_user)}
 
       else
         render json: @page.errors, status: :unprocessable_entity
@@ -78,7 +73,7 @@ class PagesController < ApplicationController
 
   # This method returns a status forbidden in case that the user reached the maximum number of prompts allowed for the day.
   def check_prompt_attempts
-    if @current_user.prompt_attempts_today >= MAX_PROMPT_ATTEMPTS_PER_DAY
+    if ImageGenerationService.remaining_prompts(@current_user) == 0
       render json: { error: 'You have reached the maximum number of prompt attempts for today.' }, status: :forbidden
     end
   end
@@ -96,9 +91,5 @@ class PagesController < ApplicationController
     params.require(:page).permit(:image_prompt, :image_url, :page_number, :page_text)
   end
 
-  # Calculates the number of remaining prompt for the dat the user has.
-  def remaining_prompts
 
-    MAX_PROMPT_ATTEMPTS_PER_DAY - @current_user.prompt_attempts_today
-  end
 end

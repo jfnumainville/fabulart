@@ -18,7 +18,4 @@ class User < ApplicationRecord
 
     self.save # Remember to persist the changes to the database
   end
-
-
-
 end
