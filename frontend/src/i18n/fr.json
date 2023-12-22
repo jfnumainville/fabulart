@@ -1,4 +1,11 @@
 {
+  "alerts":{
+    "apiError": "Il y a eu un problème, essaie de créer une image dans quelques temps",
+    "fewAttemptsLeft" : "Il te reste {remainingPrompts} images géniales à créer aujourd'hui. Laisse libre cours à ton imagination ! 🌈",
+    "promptLimit": "Tu peux seulement créer 5 autres images aujourd'hui",
+    "missingFields": "Tu n'as pas complété tous les champs, vérifie et essaye à nouveau.",
+    "zeroAttempts": "Tu as atteint ta limite quotidienne de création d'images géniales. Ne t'inquiète pas, tu pourras créer d'autres demain!"
+  },
   "hero_banner": {
     "title": "Crée des histoires illustrées incroyables avec l'IA!",
     "subtitle": "Libère ta créativité et donne vie à tes histoires avec des images générées par l'IA.",

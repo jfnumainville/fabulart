@@ -1,77 +1,137 @@
 <script>
-    import Button from '../buttons/Button.svelte';
-    import { t } from 'svelte-i18n';
+  import Button from '../buttons/Button.svelte';
+  import { t } from 'svelte-i18n';
 
-    // Use process.env to access environment variables set in vite.config.js
-    const apiEndpoint = process.env.API_ENDPOINT;
-    let storyTitle = '';
-    let imgDescription = '';
-    let imageUrl = null;
-    const userId = 1; // Since user management isn't in place yet
-    let storyId = null;
-    let isLoading = false;
-    let buttonText = storyId ? $t('NewStory.update_button') : $t('NewStory.create_button');
+  const apiEndpoint = process.env.API_ENDPOINT;
+  const timeoutDuration = 45000;
+
+  let storyTitle = '';
+  let imgDescription = '';
+  let imageUrl = null;
+  const userId = 1; // Placeholder for user ID
+  let storyId = null;
+  let isLoading = false;
+  let showAlertBox = false;
+  let alertMessage = '';
+  let remainingPrompts = 0;
+
+  async function createStory() {
+      let url = "";
+      let methodType = "";
+      isLoading = true;
+
+      //Stopping the process of creating a story if either the title or the image description is missing, an alert will be displayed.
+      if (storyTitle.trim() === '' || imgDescription.trim() === '') {
+        showAlert('alerts.missingFields');
+        isLoading = false;
+        return;
+      }
 
 
-    async function createStory() {
-        let url = "";
-        let methodType = "";
-        isLoading = true;
+      const controller = new AbortController();
+      const signal = controller.signal;
+
+      // Setting up the timeout
+      const timeoutId = setTimeout(() => {
+          console.log("API call is aborted.");
+          controller.abort();
+          isLoading = false;
+          showAlert('alerts.apiError');
+      }, timeoutDuration);
 
       if (storyId){
-        url = `${apiEndpoint}/users/${userId}/stories/${storyId}`;
-        methodType = 'PUT';
+          url = `${apiEndpoint}/users/${userId}/stories/${storyId}`;
+          methodType = 'PUT';
+      } else {
+          url = `${apiEndpoint}/users/${userId}/stories`;
+          methodType = 'POST';
       }
 
-      else {
-        url =  url = `${apiEndpoint}/users/${userId}/stories`;
-        methodType = 'POST';
-      }
-
-        const payload = {
+      const payload = {
           title: storyTitle,
-          style: "Neo", // TODO: Remove hardcoded value
+          style: "Neo",
           image_prompt: imgDescription,
       };
 
-      const response = await fetch(url, {
-          method: methodType,
-          headers: {
-              'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(payload)
-      });
-      isLoading = false;
-      if (response.status === 201 || response.status === 200 ) {
-          const data = await response.json();
-          imageUrl = data.image_url; // Update image URL only if API call is successful
-          buttonText =  $t('NewStory.update_button')
-          storyId = data.id
-          console.log("Story created or updated, ID:", data.id);
-      } else {
-          console.log(`Failed to create story: ${response.statusText}`);
+      try {
+          const response = await fetch(url, {
+              method: methodType,
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(payload),
+              signal
+          });
+
+          clearTimeout(timeoutId); // Clear the timeout on receiving response
+          isLoading = false;
+
+          if (response.status === 201 || response.status === 200) {
+              const data = await response.json();
+              imageUrl = data.story.image_url;
+              storyId = data.story.id;
+              remainingPrompts = data.remaining_prompts;
+              //Closing any old alerts that the user left opened upon successful completion
+              dismissAlert();
+
+              if (remainingPrompts <= 5){
+                showAlert('alerts.fewAttemptsLeft')
+              }
+
+
+          }else if (response.status === 403){
+            showAlert('alerts.zeroAttempts')
+          }else {
+              showAlert('alerts.apiError');
+          }
+      } catch (error) {
+          console.error("Error during fetch:", error);
+          // Optionally, send this error to your server for logging
+          // sendErrorToServer(error);
+
+          clearTimeout(timeoutId);
+          isLoading = false;
+          showAlert('alerts.apiError'); // Show a different alert for fetch errors
       }
   }
+
+  function showAlert(message) {
+      alertMessage = message;
+      showAlertBox = true;
+  }
+
+  function dismissAlert() {
+      showAlertBox = false;
+  }
 </script>
+
    <div class="container">
+    <div class="alert alert-warning alert-dismissible fade show" role="alert" style={showAlertBox ? 'display: block;' : 'display: none;'}>
+      {$t(alertMessage)}
+      <button type="button" class="btn-close" aria-label="Close" on:click={dismissAlert}></button>
+    </div>
         <div class="new-story-card">
             <img src={imageUrl ? imageUrl : '/story-template.png'} alt={imgDescription? imgDescription : "Placeholder story image"}>
             <div class="page-text-wrapper">
                 <form>
                     <div class="form-group">
                         <label for="story-title">{$t('NewStory.story_title')}</label>
-                        <input bind:value={storyTitle} id="story-title" name="story-title" type="text" placeholder={$t('NewStory.story_placeholder')}>
+                        <input bind:value={storyTitle} id="story-title" name="story-title" type="text" placeholder={$t('NewStory.story_placeholder')} disabled={isLoading}>
                     </div>
                     <div class="form-group">
                         <label for="img-description">{$t('NewStory.cover_picture')}</label>
-                        <textarea bind:value={imgDescription} name="img-description" id="img-description" placeholder={$t('NewStory.picture_placeholder')}></textarea>
+                        <textarea bind:value={imgDescription} name="img-description" id="img-description" placeholder={$t('NewStory.picture_placeholder')} disabled={isLoading}></textarea>
                     </div>
                 </form>
                 <footer>
                   {#if isLoading}
                     <div class="spinner-border text-warning" role="status"></div>
                   {:else}
-                    <Button on:click={createStory} bgColor="bg-peach">{buttonText}</Button>
+                    {#if storyId}
+                      <Button on:click={createStory} bgColor="bg-peach">{$t('NewStory.update_button')}</Button>
+                    {:else}
+                      <Button on:click={createStory} bgColor="bg-peach">{$t('NewStory.create_button')}</Button>
+                    {/if}
                   {/if}
                 </footer>
             </div>
