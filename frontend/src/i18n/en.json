@@ -1,7 +1,7 @@
 {
   "alerts":{
     "apiError": "Something went wrong, try creating an image shortly",
-    "fewAttemptsLeft": "You have {remainingPrompts} cool images left to create today. Let your imagination run wild! 🌈",
+    "fewAttemptsLeft": "You have just a few cool images left to create today. Let your imagination run wild! 🌈",
     "promptLimit": "You can only create 5 more images today",
     "missingFields": "Some fields are missing, check and try again.",
     "zeroAttempts": "You've reached your daily limit of creating cool images. Don't worry, you can create more amazing pictures tomorrow!"
@@ -34,7 +34,8 @@
   "cover_picture":"Cover picture",
   "picture_placeholder": "Describe what picture you would like for your story cover.",
   "create_button": "Create your story",
-  "update_button": "Update your story"
+  "update_button": "Update your story",
+  "regenerate": "Get a new picture"
 },
 
 "page":{

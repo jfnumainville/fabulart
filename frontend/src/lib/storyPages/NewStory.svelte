@@ -8,7 +8,7 @@
   let storyTitle = '';
   let imgDescription = '';
   let imageUrl = null;
-  const userId = 1; // Placeholder for user ID
+  const userId = 2; // Placeholder for user ID
   let storyId = null;
   let isLoading = false;
   let showAlertBox = false;
@@ -26,7 +26,6 @@
         isLoading = false;
         return;
       }
-
 
       const controller = new AbortController();
       const signal = controller.signal;
@@ -86,13 +85,45 @@
           }
       } catch (error) {
           console.error("Error during fetch:", error);
-          // Optionally, send this error to your server for logging
-          // sendErrorToServer(error);
-
           clearTimeout(timeoutId);
           isLoading = false;
           showAlert('alerts.apiError'); // Show a different alert for fetch errors
       }
+  }
+
+
+  async function regenerateStoryImage() {
+    if (!storyId) return; // Do nothing if storyId is not set
+
+    const regenerateUrl = `${apiEndpoint}/users/${userId}/stories/${storyId}/regenerate`;
+    isLoading = true;
+
+    try {
+      const response = await fetch(regenerateUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+      });
+
+      isLoading = false;
+
+      if (response.status === 201 || response.status === 200) {
+        const data = await response.json();
+        imageUrl = data.story.image_url; // Assuming this is the key in your response
+
+      if (remainingPrompts <= 5){
+            showAlert('alerts.fewAttemptsLeft')
+           }
+
+          }else if (response.status === 403){
+            showAlert('alerts.zeroAttempts')
+          }else {
+              showAlert('alerts.apiError');
+          }
+    } catch (error) {
+      console.error("Error during fetch:", error);
+      isLoading = false;
+      showAlert('alerts.apiError');
+    }
   }
 
   function showAlert(message) {
@@ -123,6 +154,11 @@
                         <textarea bind:value={imgDescription} name="img-description" id="img-description" placeholder={$t('NewStory.picture_placeholder')} disabled={isLoading}></textarea>
                     </div>
                 </form>
+                {#if storyId && !isLoading}
+                        <button class="btn btn-primary" on:click={regenerateStoryImage} aria-label="Regenerate Image">
+                          <i class="bi bi-arrow-repeat" style="font-size: 1.2em"></i>
+                        </button>
+                {/if}
                 <footer>
                   {#if isLoading}
                     <div class="spinner-border text-warning" role="status"></div>

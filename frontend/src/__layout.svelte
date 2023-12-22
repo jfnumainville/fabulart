@@ -6,6 +6,8 @@
   import fr from './i18n/fr.json';
   import { t } from 'svelte-i18n';
   import 'bootstrap/dist/css/bootstrap.min.css';
+  import 'bootstrap-icons/font/bootstrap-icons.css';
+
 
   let selectedLang;
 

@@ -1,7 +1,7 @@
 {
   "alerts":{
     "apiError": "Il y a eu un problème, essaie de créer une image dans quelques temps",
-    "fewAttemptsLeft" : "Il te reste {remainingPrompts} images géniales à créer aujourd'hui. Laisse libre cours à ton imagination ! 🌈",
+    "fewAttemptsLeft" : "Il te reste peu d'images géniales à créer aujourd'hui. Laisse libre cours à ton imagination ! 🌈",
     "promptLimit": "Tu peux seulement créer 5 autres images aujourd'hui",
     "missingFields": "Tu n'as pas complété tous les champs, vérifie et essaye à nouveau.",
     "zeroAttempts": "Tu as atteint ta limite quotidienne de création d'images géniales. Ne t'inquiète pas, tu pourras créer d'autres demain!"
@@ -33,7 +33,8 @@
     "cover_picture":"Image de couverture",
     "picture_placeholder": "Décris l'image de couverture que tu aimerais avoir.",
     "create_button": "Création de l'histoire",
-    "update_button": "Mets à jour ton histoire"
+    "update_button": "Mets à jour ton histoire",
+    "regenerate": "Obtiens une nouvelle image"
   },
   "page":{
     "title":"Fabulart | Crée ta propre histoire"

@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   #user routes
   resources :users do
     resources :stories, only: [:index, :show, :create, :update, :destroy] do
+      post :regenerate, on: :member
       resources :pages, only: [:index, :show, :create, :update, :destroy] do
         post :regenerate, on: :member
       end
